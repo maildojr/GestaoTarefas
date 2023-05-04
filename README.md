@@ -1,7 +1,4 @@
-# Gestão de Tarefas - Vue.Js 3
-Aplicação para Gestão de Tempo de Tarefas, criado em Vue.Js e Bulma
-
-Demo (https://gestao-tarefas.vercel.app/)
+# tracker
 
 ## Project setup
 ```
