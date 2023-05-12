@@ -1,4 +1,7 @@
-# tracker
+# Gestão de Tempo - Vue.js
+Aplicação para Gestão de Tempo de Tarefas, utilizando Vue.js
+
+Demo (https://gestao-tarefas.vercel.app/)
 
 ## Project setup
 ```

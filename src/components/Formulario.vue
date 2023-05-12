@@ -1,7 +1,7 @@
 <template>
     <div class="box formulario">
         <div class="columns">
-            <div class="column is-8" role="form" aria-label="Formulário Para criação de uma nova tarefa">
+            <div class="column is-5" role="form" aria-label="Formulário Para criação de uma nova tarefa">
                 <input 
                     type="text" 
                     class="input" 
@@ -9,6 +9,20 @@
                     placeholder="Nome da Tarefa"
                     v-model="descricaoTarefa"
                 />
+            </div>
+            <div class="column is-3">
+                <div class="select">
+                    <select v-model="idProjeto">
+                        <option value="">Selecione o Projeto</option>
+                        <option 
+                            :value="projeto.id"
+                            v-for="projeto in projetos"
+                            :key="projeto.id"
+                        >
+                            {{ projeto.nome }}
+                        </option>
+                    </select>
+                </div>
             </div>
             <div class="column">
                 
@@ -19,8 +33,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import TemporizadorTarefa from './Temporizador.vue';
+import { useStore } from 'vuex'
+import { key } from '@/store';
 
 export default defineComponent({
     name: 'FormularioTarefa',
@@ -30,7 +46,8 @@ export default defineComponent({
     },
     data () {
         return {
-            descricaoTarefa: ''
+            descricaoTarefa: '',
+            idProjeto: ''
         }
     },
     methods: {
@@ -39,9 +56,16 @@ export default defineComponent({
             //console.log('Tarefa: ',this.descricaoTarefa)
             this.$emit('aoSalvarTarefa', {
                 duracaoEmSegundos: tempoDecorrido,
-                descricao: this.descricaoTarefa
+                descricao: this.descricaoTarefa,
+                projeto: this.projetos.find(proj => proj.id == this.idProjeto)
             })
             this.descricaoTarefa = ''
+        }
+    },
+    setup () {
+        const store = useStore(key)
+        return {
+            projetos: computed(() => store.state.projetos)
         }
     }
 })
